@@ -1,0 +1,52 @@
+{
+  "_comment": "指标定义。表格列顺序即 columns 顺序。latex 字段用 KaTeX 渲染；改这里会同步到首页表头和方法页。",
+  "columns": ["R_W", "P_W_v2", "R_E", "P_E_v2"],
+  "metrics": {
+    "R_W": {
+      "dimension": "Write",
+      "label": "R_W",
+      "tex": "R_W",
+      "name_zh": "窗口内关键事实写入召回率",
+      "formula": "R_W = \\frac{\\text{正确新写入的关键事实数}}{\\text{本次应新增的关键事实数}}",
+      "caliber_note": "v1 与 v2 定义相同，v1 下的实测值在 v2 下直接有效。"
+    },
+    "P_W_v2": {
+      "dimension": "Write",
+      "label": "P_W^(v2)",
+      "tex": "P_W^{(v2)}",
+      "name_zh": "新增有效图片保存率",
+      "formula": "P_W^{(v2)} = \\frac{\\text{带来至少一个新增、及时的关键事实的成功保存次数}}{\\text{全部成功保存次数}}",
+      "caliber_note": "v2 口径（2026-10-21 定稿）。分母是成功保存次数，与 v1 的 P_W 分母不同，旧分数不能换算。"
+    },
+    "R_E": {
+      "dimension": "Read",
+      "label": "R_E",
+      "tex": "R_E",
+      "name_zh": "证据召回率",
+      "formula": "R_E = \\frac{\\text{实际送达的、不重复的所需证据数}}{\\text{任务所需证据总数}}",
+      "caliber_note": "v1 与 v2 定义相同，v1 下的实测值在 v2 下直接有效。"
+    },
+    "P_E_v2": {
+      "dimension": "Read",
+      "label": "P_E^(v2)",
+      "tex": "P_E^{(v2)}",
+      "name_zh": "新增有效图片送达率",
+      "formula": "P_E^{(v2)} = \\frac{\\text{带来至少一项新增所需证据的主动图片送达次数}}{\\text{全部主动记忆图片送达次数}}",
+      "caliber_note": "v2 口径（2026-10-21 定稿）。分母为 0（零图片送达）时记 N/A。"
+    }
+  },
+  "legacy_v1": {
+    "_comment": "v1 旧口径，仅在折叠备注中出现，不进入主表。",
+    "P_W": {
+      "tex": "P_W",
+      "name_zh": "写入精确率（v1）",
+      "formula": "P_W = \\frac{\\text{正确、有价值且非重复的新写事实数}}{\\text{实际新写事实出现次数}}"
+    },
+    "P_E": {
+      "tex": "P_E",
+      "name_zh": "检索精确率（v1）",
+      "formula": "P_E = \\frac{\\text{实际送达且支持至少一项当前所需证据的图片项次数}}{\\text{通过记忆读取实际送达的全部图片项次数}}",
+      "extra": "零图片送达时记 N/A。"
+    }
+  }
+}

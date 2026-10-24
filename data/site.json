@@ -1,0 +1,31 @@
+{
+  "_comment": "站点文案。改这里即可更新首页介绍和页脚。",
+  "title": "Memory-Agentic Benchmark",
+  "eyebrow": "WRITE · READ",
+  "project_tag": "AGENT MEMORY BENCHMARK",
+  "intro": "在仿真机械臂任务中评测 agent 记忆的写入（Write）与读取（Read）能力，对比不同模型与 harness 组合的记忆行为。",
+  "about": [
+    "载体为 RoboDojo 仿真环境，共 6 个任务。",
+    "测评对象是 agent 系统，即模型 + harness/agent 框架 + 接入链路。表中差异只能解读为系统行为差异，不能解读为纯模型能力差异。"
+  ],
+  "environment": "RoboDojo",
+  "tasks": [
+    "cover_blocks",
+    "match_and_pick_from_conveyor",
+    "swap_blocks",
+    "swap_T",
+    "press_by_number",
+    "imitate_sorting_sequence"
+  ],
+  "dimensions": [
+    { "key": "Write", "name_zh": "写记忆", "desc": "agent 在任务执行中把关键事实/图片存入记忆。" },
+    { "key": "Read", "name_zh": "读记忆", "desc": "agent 从记忆中读取历史图片证据。" }
+  ],
+  "red_lines": [
+    "每个数据点都标注口径版本（v1 / v2）和批次状态（正式冻结 / 开发观察）。",
+    "不同批次、不同协议的数据不拼成受控对比；放在同一张表里时，按批次分组并标注“非受控对比”。",
+    "batch012 的 v1 精确率不能换算成 v2；凡未按 v2 定义重算的格子一律写“待重算”。",
+    "把 v1 分子与其他分母拼起来的条件示例数字没有经过计算，不作为结果展示；v1 精确率只出现在折叠备注里，且标明是 v1。"
+  ],
+  "footer": "Memory-Agentic Benchmark · 数据以 data/*.json 为准"
+}

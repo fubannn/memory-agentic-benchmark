@@ -1,0 +1,96 @@
+{
+  "_comment": "实验批次数据。新增批次：在 batches 数组里追加一项即可，页面自动渲染。分数格式：{\"num\":34,\"den\":48} 为实测值；{\"status\":\"pending\"} 为待重算；{\"status\":\"na\",\"note\":\"...\"} 为 N/A；{\"status\":\"missing\"} 为数据未提供。caliber 字段标注该数据点的口径。",
+  "status_types": {
+    "formal_frozen": { "label": "正式批次 · 已冻结", "short": "正式·冻结", "desc": "formal gate CLOSED，分数不可再改。" },
+    "dev_pilot": { "label": "开发观察 · 非正式", "short": "开发观察", "desc": "开发 pilot，仅作开发观察，不可与正式批次直接比较；同批次内各组合之间也是非受控对比。" }
+  },
+  "batches": [
+    {
+      "id": "batch012",
+      "title": "batch012",
+      "status": "formal_frozen",
+      "caliber": "v1（R_W、R_E 定义在 v2 下不变）",
+      "tasks": "F01–F08，共 8 个正式任务实例",
+      "summary": "组内 baseline：DeepSeek V4.1 Flash + Stirrup harness。",
+      "systems": [
+        {
+          "id": "dsh",
+          "model": "DeepSeek V4.1 Flash",
+          "model_api": "deepseek-flash",
+          "harness": "Stirrup",
+          "tag": "dsh · 组内 baseline",
+          "scores": {
+            "R_W": { "num": 34, "den": 48, "caliber": "v1 实测，v2 同定义" },
+            "P_W_v2": { "status": "pending", "caliber": "v2" },
+            "R_E": { "num": 43, "den": 48, "caliber": "v1 实测，v2 同定义" },
+            "P_E_v2": { "status": "pending", "caliber": "v2" }
+          },
+          "legacy_v1": {
+            "P_W": { "num": 34, "den": 112 },
+            "P_E": { "num": 43, "den": 106 }
+          }
+        }
+      ],
+      "task_details": {
+        "available": false,
+        "note": "目前只有批次总分，F01–F08 的任务级明细待补。",
+        "rows": [
+          { "task": "F01", "system": "dsh" },
+          { "task": "F02", "system": "dsh" },
+          { "task": "F03", "system": "dsh" },
+          { "task": "F04", "system": "dsh" },
+          { "task": "F05", "system": "dsh" },
+          { "task": "F06", "system": "dsh" },
+          { "task": "F07", "system": "dsh" },
+          { "task": "F08", "system": "dsh" }
+        ]
+      },
+      "legacy_note": "batch012 在 v1 口径下测得 P_W = 34/112、P_E = 43/106。v1 与 v2 的精确率分母定义不同，这两个数不能换算成 P_W^(v2)、P_E^(v2)，也不是 v2 结果。v2 精确率需按新定义从原始记录重算。"
+    },
+    {
+      "id": "batch020",
+      "title": "batch020",
+      "status": "dev_pilot",
+      "caliber": "v2",
+      "tasks": "开发 pilot（任务实例清单待补）",
+      "summary": "比较两个模型在同一 Stirrup harness 下的行为，仅作开发观察。",
+      "systems": [
+        {
+          "id": "ds-stirrup",
+          "model": "DeepSeek V4.1 Flash",
+          "model_api": "deepseek-flash",
+          "harness": "Stirrup",
+          "scores": {
+            "R_W": { "num": 16, "den": 18, "caliber": "v2" },
+            "P_W_v2": { "num": 16, "den": 18, "caliber": "v2" },
+            "R_E": { "num": 15, "den": 18, "caliber": "v2" },
+            "P_E_v2": { "num": 15, "den": 44, "caliber": "v2" }
+          },
+          "notes": [
+            "R_E = 15/18 与随机读取的期望值（15/18）没有差别，说明当时的任务设置测不出“会不会选”。"
+          ]
+        },
+        {
+          "id": "gpt-stirrup",
+          "model": "GPT-5.6",
+          "model_api": null,
+          "harness": "Stirrup",
+          "scores": {
+            "R_W": { "num": 11, "den": 18, "caliber": "v2" },
+            "P_W_v2": { "num": 11, "den": 27, "caliber": "v2" },
+            "R_E": { "num": 0, "den": 18, "caliber": "v2" },
+            "P_E_v2": { "status": "na", "note": "0/0，零图片送达", "caliber": "v2" }
+          },
+          "notes": [
+            "9 条 Read 全部在首轮直接 finish，memory 调用 0 次。工具定义齐全、HTTP 200，不是接线问题，而是一次都没有发起读取。"
+          ]
+        }
+      ],
+      "task_details": {
+        "available": false,
+        "note": "任务级明细待补。",
+        "rows": []
+      }
+    }
+  ]
+}
